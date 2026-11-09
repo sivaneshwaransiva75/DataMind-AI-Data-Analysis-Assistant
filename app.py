@@ -18,11 +18,6 @@ from analysis.insight_generator import generate_insights
 from analysis.data_explorer import prepare_explorer_data
 from analysis.report_generator import generate_pdf_report
 
-
-# ==========================================
-# 1. FLASK CONFIGURATION
-# ==========================================
-
 app = Flask(__name__)
 
 BASE_FOLDER = os.path.dirname(os.path.abspath(__file__))
@@ -39,28 +34,13 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(CHART_FOLDER, exist_ok=True)
 os.makedirs(REPORT_FOLDER, exist_ok=True)
 
-
-# ==========================================
-# 2. HOME DASHBOARD
-# ==========================================
-
 @app.route("/")
 def home():
     return render_template("index.html")
 
-
-# ==========================================
-# 3. CHART IMAGE ROUTE
-# ==========================================
-
 @app.route("/charts/<path:filename>")
 def show_chart(filename):
     return send_from_directory(CHART_FOLDER, filename)
-
-
-# ==========================================
-# 4. DATASET UPLOAD AND ANALYSIS
-# ==========================================
 
 @app.route("/upload", methods=["POST"])
 def upload_dataset():
@@ -154,11 +134,6 @@ def upload_dataset():
             error=f"Dataset analysis failed: {error}"
         )
 
-
-# ==========================================
-# 5. PDF REPORT DOWNLOAD
-# ==========================================
-
 @app.route("/download-report/<filename>")
 def download_report(filename):
 
@@ -209,11 +184,6 @@ def download_report(filename):
         print("PDF REPORT ERROR:", error)
 
         return f"PDF generation failed: {error}", 500
-
-
-# ==========================================
-# 6. START APPLICATION
-# ==========================================
 
 if __name__ == "__main__":
 

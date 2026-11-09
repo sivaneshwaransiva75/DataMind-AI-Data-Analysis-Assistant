@@ -5,8 +5,6 @@ import pandas as pd
 def generate_insights(df):
 
     insights = []
-
-    # 1. DATASET OVERVIEW
     total_rows = len(df)
     total_columns = len(df.columns)
 
@@ -16,7 +14,6 @@ def generate_insights(df):
         "type": "info"
     })
 
-    # 2. MISSING VALUES
     total_missing = int(df.isnull().sum().sum())
 
     if total_missing > 0:
@@ -32,7 +29,6 @@ def generate_insights(df):
             "type": "success"
         })
 
-    # 3. DUPLICATE RECORDS
     total_duplicates = int(df.duplicated().sum())
 
     if total_duplicates > 0:
@@ -48,7 +44,6 @@ def generate_insights(df):
             "type": "success"
         })
 
-    # 4. NUMERIC COLUMN ANALYSIS
     numeric_columns = df.select_dtypes(
         include=["number"]
     ).columns
@@ -74,7 +69,6 @@ def generate_insights(df):
             "type": "info"
         })
 
-    # 5. CATEGORICAL COLUMN ANALYSIS
     categorical_columns = df.select_dtypes(
         include=["object", "category", "bool"]
     ).columns

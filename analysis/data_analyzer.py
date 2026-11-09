@@ -4,11 +4,9 @@ import pandas as pd
 
 def analyze_dataset(df):
 
-    # Dataset dimensions
     total_rows = int(df.shape[0])
     total_columns = int(df.shape[1])
 
-    # Missing values
     total_missing = int(df.isnull().sum().sum())
 
     missing_values = []
@@ -19,10 +17,8 @@ def analyze_dataset(df):
             "missing": int(df[column].isnull().sum())
         })
 
-    # Duplicate records
     duplicate_rows = int(df.duplicated().sum())
 
-    # Column data types
     data_types = []
 
     for column in df.columns:
@@ -31,7 +27,6 @@ def analyze_dataset(df):
             "data_type": str(df[column].dtype)
         })
 
-    # Statistical summary
     summary = df.describe(include="all").transpose()
     summary.index.name = "Column"
     summary = summary.reset_index()

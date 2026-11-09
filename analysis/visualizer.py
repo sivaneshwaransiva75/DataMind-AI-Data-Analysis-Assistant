@@ -25,14 +25,12 @@ def generate_charts(df):
 
     charts = []
 
-    # Remove previous generated charts
     for filename in os.listdir(CHART_FOLDER):
 
         if filename.endswith(".png"):
             file_path = os.path.join(CHART_FOLDER, filename)
             os.remove(file_path)
 
-    # Identify column types
     numeric_columns = df.select_dtypes(
         include="number"
     ).columns.tolist()

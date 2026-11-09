@@ -12,19 +12,13 @@ def generate_pdf_report(df, dataset_name, insights, output_path):
     pdf.set_margins(12, 12, 12)
     pdf.set_auto_page_break(auto=False)
     pdf.add_page()
-
-    # Page settings
     LEFT = 12
     RIGHT = 12
     TOP = 15
     BOTTOM = 285
-
     MAX_WIDTH = pdf.w - LEFT - RIGHT
     LINE_HEIGHT = 6
-
     y = TOP
-
-    # Convert unsupported characters safely
     def clean_text(value):
         return (
             str(value)
@@ -33,8 +27,7 @@ def generate_pdf_report(df, dataset_name, insights, output_path):
             .encode("latin-1", errors="replace")
             .decode("latin-1")
         )
-
-    # Manually wrap text using actual font measurements
+    
     def wrap_text(value):
 
         value = clean_text(value)
@@ -90,7 +83,6 @@ def generate_pdf_report(df, dataset_name, insights, output_path):
 
         return lines or [""]
 
-    # Write text directly without cell or multi_cell
     def write_text(value, size=9, bold=False, gap=0):
 
         nonlocal y
@@ -115,7 +107,6 @@ def generate_pdf_report(df, dataset_name, insights, output_path):
 
         y += gap
 
-    # Main title
     pdf.set_font("Helvetica", "B", 20)
 
     title = "DataMind AI Analysis Report"
@@ -130,14 +121,12 @@ def generate_pdf_report(df, dataset_name, insights, output_path):
 
     y += 18
 
-    # 1. Dataset Overview
     write_text("1. DATASET OVERVIEW", 14, True, 3)
 
     write_text(f"Dataset Name: {dataset_name}")
     write_text(f"Total Rows: {df.shape[0]}")
     write_text(f"Total Columns: {df.shape[1]}", gap=5)
 
-    # 2. Data Quality
     write_text("2. DATA QUALITY", 14, True, 3)
 
     missing = int(df.isnull().sum().sum())
@@ -146,7 +135,6 @@ def generate_pdf_report(df, dataset_name, insights, output_path):
     write_text(f"Missing Values: {missing}")
     write_text(f"Duplicate Rows: {duplicates}", gap=5)
 
-    # 3. Statistical Analysis
     write_text("3. STATISTICAL ANALYSIS", 14, True, 3)
 
     numeric_df = df.select_dtypes(include="number")
@@ -169,7 +157,6 @@ def generate_pdf_report(df, dataset_name, insights, output_path):
 
     y += 3
 
-    # 4. AI Insights
     write_text("4. AI-GENERATED INSIGHTS", 14, True, 3)
 
     if insights:
@@ -182,7 +169,6 @@ def generate_pdf_report(df, dataset_name, insights, output_path):
 
     y += 3
 
-    # 5. Dataset Preview
     write_text("5. DATASET PREVIEW", 14, True, 3)
 
     for number, (_, row) in enumerate(df.head(10).iterrows(), start=1):
@@ -198,7 +184,6 @@ def generate_pdf_report(df, dataset_name, insights, output_path):
 
         y += 3
 
-    # Save PDF
     pdf.output(output_path)
 
     print("--------------------------------")
