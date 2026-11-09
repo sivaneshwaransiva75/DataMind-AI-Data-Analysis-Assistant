@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+.env
+*.db
+uploads/*
+!uploads/.gitkeep
+reports/*.pdf
+static/generated_charts/*
+!static/generated_charts/.gitkeep

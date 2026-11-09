@@ -1,0 +1,913 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DataMind | AI Analytics Workspace</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">✦</div>
+
+            <div class="brand-name">
+                DataMind
+                <span>AI ANALYTICS</span>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+
+            <p class="sidebar-heading">WORKSPACE</p>
+
+            <nav class="sidebar-nav">
+
+                <a href="#overview" class="nav-link active">
+                    <span class="nav-icon">◈</span>
+                    <span>Overview</span>
+                </a>
+
+                <a href="#upload" class="nav-link">
+                    <span class="nav-icon">↑</span>
+                    <span>Upload Dataset</span>
+                </a>
+
+                <a href="#analysis" class="nav-link">
+                    <span class="nav-icon">▤</span>
+                    <span>Data Analysis</span>
+                </a>
+
+                <a href="#ai-insights" class="nav-link">
+                    <span class="nav-icon">✧</span>
+                    <span>AI Insights</span>
+                </a>
+
+                <a href="#charts" class="nav-link">
+                    <span class="nav-icon">▥</span>
+                    <span>Visualizations</span>
+                </a>
+
+                <a href="#data-explorer" class="nav-link">
+                    <span class="nav-icon">⌕</span>
+                    <span>Data Explorer</span>
+                </a>
+
+            </nav>
+        </div>
+
+        <div class="sidebar-section">
+
+            <p class="sidebar-heading">ANALYTICS TOOLS</p>
+
+            <nav class="sidebar-nav">
+
+                <a href="#analysis" class="nav-link">
+                    <span class="nav-icon">◉</span>
+                    <span>Data Quality</span>
+                </a>
+
+                <a href="#summary" class="nav-link">
+                    <span class="nav-icon">▦</span>
+                    <span>Statistics</span>
+                </a>
+
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+                <span>All Systems Operational</span>
+            </div>
+
+            <div class="profile">
+
+                <div class="avatar">DM</div>
+
+                <div class="profile-info">
+                    <strong>DataMind User</strong>
+                    <span>Analytics Workspace</span>
+                </div>
+
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="breadcrumb">
+                <span>Analytics Assistant</span>
+                <span class="breadcrumb-divider">/</span>
+                <strong>Workspace</strong>
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    System Online
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- HERO SECTION -->
+
+        <section class="hero" id="overview">
+
+            <div class="hero-content">
+
+                <span class="hero-label">
+                    ✦ INTELLIGENT ANALYTICS
+                </span>
+
+                <h1>
+                    Turn Your Data Into
+                    <span>Intelligent Insights</span>
+                </h1>
+
+                <p>
+                    Explore your datasets, discover hidden patterns,
+                    generate visualizations and understand your data
+                    with your AI-powered analytics workspace.
+                </p>
+
+                <a href="#upload" class="hero-button">
+                    Start Analyzing
+                    <span>→</span>
+                </a>
+
+            </div>
+
+            <div class="hero-graphic">
+
+                <div class="graphic-circle">
+
+                    <div class="graphic-inner">
+                        <span class="graphic-symbol">✦</span>
+                    </div>
+
+                </div>
+
+                <div class="graphic-orbit orbit-one"></div>
+                <div class="graphic-orbit orbit-two"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- STATISTICS CARDS -->
+
+        <section class="stats-section">
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">▤</div>
+
+                    <div class="stat-info">
+                        <span>Total Rows</span>
+                        <h2>{{ total_rows|default(0) }}</h2>
+                        <small>Dataset records</small>
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">▦</div>
+
+                    <div class="stat-info">
+                        <span>Total Columns</span>
+                        <h2>{{ total_columns|default(0) }}</h2>
+                        <small>Dataset features</small>
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">◉</div>
+
+                    <div class="stat-info">
+                        <span>Missing Values</span>
+                        <h2>
+                            {{ analysis.total_missing|default(0) if analysis is defined else 0 }}
+                        </h2>
+                        <small>Data quality check</small>
+                    </div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">▥</div>
+
+                    <div class="stat-info">
+                        <span>Charts Created</span>
+                        <h2>{{ charts|length if charts is defined else 0 }}</h2>
+                        <small>Visual analytics</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- UPLOAD DATASET SECTION -->
+
+        <section class="workspace-section" id="upload">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">DATA IMPORT</span>
+                    <h2>Upload Your Dataset</h2>
+
+                    <p>
+                        Import your data to begin intelligent analysis.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="upload-container">
+
+                <form action="{{ url_for('upload_dataset') }}"
+                      method="POST"
+                      enctype="multipart/form-data"
+                      class="upload-form">
+
+                    <label for="dataset" class="upload-area">
+
+                        <div class="upload-symbol">↑</div>
+
+                        <h3>Upload your dataset</h3>
+
+                        <p>
+                            Select a CSV or Excel file from your computer.
+                        </p>
+
+                        <input
+                            type="file"
+                            id="dataset"
+                            name="dataset"
+                            accept=".csv,.xlsx,.xls"
+                            required
+                        >
+
+                        <span class="upload-formats">
+                            Supported formats: CSV, XLSX and XLS
+                        </span>
+
+                    </label>
+
+                    <button type="submit"
+                            class="hero-button upload-button">
+
+                        Analyze Dataset
+                        <span>→</span>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            {% if error %}
+
+            <div class="error-message">
+                <span>!</span>
+                {{ error }}
+            </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- DATASET ANALYSIS RESULTS -->
+
+        {% if analysis is defined %}
+
+        <section class="workspace-section" id="analysis">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">DATA INTELLIGENCE</span>
+                    <h2>Dataset Analysis</h2>
+
+                    <p>
+                        Detailed information about your uploaded dataset.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- DATASET INFORMATION -->
+
+            <div class="data-result-card">
+
+                <div class="result-header">
+
+                    <div>
+
+                        <span class="chart-label">CURRENT DATASET</span>
+
+                        <h3>
+                            {{ dataset_name|default("Uploaded Dataset") }}
+                        </h3>
+
+                    </div>
+
+                    <span class="system-status">
+                        Analysis Complete
+                    </span>
+
+                </div>
+
+                <div class="dataset-details">
+
+                    <div>
+                        <span>Records</span>
+                        <strong>{{ total_rows }}</strong>
+                    </div>
+
+                    <div>
+                        <span>Features</span>
+                        <strong>{{ total_columns }}</strong>
+                    </div>
+
+                    <div>
+                        <span>Missing Values</span>
+                        <strong>{{ analysis.total_missing }}</strong>
+                    </div>
+
+                    <div>
+                        <span>Duplicate Rows</span>
+                        <strong>{{ analysis.duplicate_rows }}</strong>
+                    </div>
+
+                </div>
+
+                <!-- NEW: PDF REPORT DOWNLOAD BUTTON -->
+
+                <div style="margin-top: 25px;">
+
+                    <a href="{{ url_for('download_report', filename=dataset_name) }}"
+                       class="hero-button"
+                       style="display: inline-flex; text-decoration: none;">
+
+                        <span style="margin-right: 10px;">↓</span>
+                        Download PDF Report
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- MISSING VALUES TABLE -->
+
+            <div class="data-result-card">
+
+                <h3>Missing Values Analysis</h3>
+
+                <div class="table-container">
+
+                    <table class="data-table">
+
+                        <thead>
+                            <tr>
+                                <th>Column Name</th>
+                                <th>Missing Values</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for item in analysis.missing_values %}
+
+                            <tr>
+                                <td>{{ item.column }}</td>
+                                <td>{{ item.missing }}</td>
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- DATA TYPES TABLE -->
+
+            <div class="data-result-card">
+
+                <h3>Column Data Types</h3>
+
+                <div class="table-container">
+
+                    <table class="data-table">
+
+                        <thead>
+                            <tr>
+                                <th>Column Name</th>
+                                <th>Data Type</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for item in analysis.data_types %}
+
+                            <tr>
+                                <td>{{ item.column }}</td>
+                                <td>{{ item.data_type }}</td>
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATISTICAL SUMMARY -->
+
+            <div class="data-result-card" id="summary">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-label">STATISTICAL REPORT</span>
+                        <h3>Statistical Summary</h3>
+                    </div>
+
+                </div>
+
+                <div class="table-container">
+                    {{ analysis.summary_html|safe }}
+                </div>
+
+            </div>
+
+
+            <!-- COLUMN INFORMATION -->
+
+            <div class="data-result-card">
+
+                <h3>Dataset Features</h3>
+
+                <p>
+                    Columns detected in your uploaded dataset.
+                </p>
+
+                <div class="column-tags">
+
+                    {% for column in column_names %}
+
+                    <span class="column-tag">
+                        {{ column }}
+                    </span>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+            <!-- DATA PREVIEW -->
+
+            <div class="data-result-card">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-label">DATA EXPLORER</span>
+                        <h3>Dataset Preview</h3>
+
+                        <p>
+                            First five records from your uploaded dataset.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="table-container">
+                    {{ preview_data|safe }}
+                </div>
+
+            </div>
+
+
+            <!-- AI INTELLIGENCE PANEL -->
+
+            <section class="workspace-section" id="ai-insights">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="hero-label">
+                            ✦ DATAMIND INTELLIGENCE
+                        </span>
+
+                        <h2>AI-Powered Data Insights</h2>
+
+                        <p>
+                            Discover important patterns and findings
+                            in your dataset.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="insights-grid">
+
+                    {% for insight in insights|default([]) %}
+
+                    <div class="insight-card insight-{{ insight.type }}">
+
+                        <div class="insight-card-header">
+
+                            <div class="insight-icon">
+
+                                {% if insight.type == "success" %}
+                                    ✓
+                                {% elif insight.type == "warning" %}
+                                    !
+                                {% else %}
+                                    ✦
+                                {% endif %}
+
+                            </div>
+
+                            <span class="insight-type">
+                                {{ insight.type|upper }}
+                            </span>
+
+                        </div>
+
+                        <h3>{{ insight.title }}</h3>
+                        <p>{{ insight.message }}</p>
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="data-result-card">
+
+                        <h3>No Insights Available</h3>
+
+                        <p>
+                            Upload a dataset to generate intelligent insights.
+                        </p>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+
+            <!-- DATA VISUALIZATIONS -->
+
+            <section class="workspace-section visualization-section"
+                     id="charts">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="hero-label">
+                            ✦ VISUAL ANALYTICS
+                        </span>
+
+                        <h2>Data Visualizations</h2>
+
+                        <p>
+                            Explore your dataset through automatically
+                            generated charts.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="chart-grid">
+
+                    {% for chart in charts|default([]) %}
+
+                    <div class="chart-card">
+
+                        <div class="chart-card-header">
+
+                            <div>
+
+                                <span class="chart-label">
+                                    DATA VISUALIZATION
+                                </span>
+
+                                <h3>{{ chart.title }}</h3>
+
+                            </div>
+
+                            <span class="chart-indicator">●</span>
+
+                        </div>
+
+                        <div class="chart-image-container">
+
+                            <img
+                                src="{{ url_for('show_chart', filename=chart.filename) }}"
+                                alt="{{ chart.title }}"
+                                class="generated-chart"
+                            >
+
+                        </div>
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="data-result-card">
+
+                        <h3>No Charts Available</h3>
+
+                        <p>
+                            No suitable columns were found for visualization.
+                        </p>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+        {% endif %}
+
+
+        <!-- INTERACTIVE DATA EXPLORER -->
+
+        {% if explorer_data is defined %}
+
+        <section class="workspace-section" id="data-explorer">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        INTERACTIVE ANALYTICS
+                    </span>
+
+                    <h2>Interactive Data Explorer</h2>
+
+                    <p>
+                        Search, explore and navigate through your uploaded dataset.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="data-result-card explorer-card">
+
+                <!-- SEARCH AND PAGE SIZE -->
+
+                <div class="explorer-toolbar">
+
+                    <div class="explorer-search">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="explorerSearch"
+                            placeholder="Search any record..."
+                        >
+
+                    </div>
+
+                    <div class="explorer-page-size">
+
+                        <label for="rowsPerPage">
+                            Rows per page
+                        </label>
+
+                        <select id="rowsPerPage">
+
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RECORD INFORMATION -->
+
+                <div class="explorer-information">
+
+                    <div>
+
+                        <span class="status-dot"></span>
+
+                        <span id="explorerRecordCount">
+                            {{ explorer_data.total_rows }} records available
+                        </span>
+
+                    </div>
+
+                    <span id="explorerPageInfo">
+                        Page 1
+                    </span>
+
+                </div>
+
+
+                <!-- DATA TABLE -->
+
+                <div class="table-container">
+
+                    <table class="data-table explorer-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                {% for column in explorer_data.columns %}
+
+                                <th>{{ column }}</th>
+
+                                {% endfor %}
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="explorerTableBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- EMPTY SEARCH RESULT -->
+
+                <div class="explorer-empty"
+                     id="explorerEmpty"
+                     hidden>
+
+                    <div>⌕</div>
+
+                    <h3>No matching records found</h3>
+
+                    <p>
+                        Try another search keyword.
+                    </p>
+
+                </div>
+
+
+                <!-- PAGINATION -->
+
+                <div class="explorer-pagination">
+
+                    <button
+                        type="button"
+                        id="explorerPrevious"
+                        class="explorer-page-button">
+
+                        ← Previous
+
+                    </button>
+
+                    <span id="explorerPageNumber">1</span>
+
+                    <button
+                        type="button"
+                        id="explorerNext"
+                        class="explorer-page-button">
+
+                        Next →
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DATA FOR JAVASCRIPT -->
+
+        <script id="explorerData" type="application/json">
+            {{ explorer_data|tojson }}
+        </script>
+
+        {% endif %}
+
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+
+            <div class="footer-content">
+
+                <div class="footer-brand">
+
+                    <span>✦ DataMind</span>
+                    <p>Intelligent Analytics Workspace</p>
+
+                </div>
+
+                <div class="footer-right">
+
+                    <span class="status-dot"></span>
+                    System Operational
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <p>
+                    © 2026 DataMind AI Analytics. All rights reserved.
+                </p>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
